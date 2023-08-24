@@ -14,15 +14,13 @@ export class RoleController {
         private roleService : RoleService
     ){}
 
-
-
     @Get()
     async getAllRoles(): Promise<RoleEntity[]> {
         return this.roleService.getAllRoles();
     }
 
-    // @UseGuards(StatusGuard)
-    // @Status(UserStatus.ADMIN)
+    @UseGuards(StatusGuard)
+    @Status(UserStatus.ADMIN)
     @Post()
     async createRole(@Body() roleDto: RoleCreateDTO): Promise<RoleEntity | null> {
         return this.roleService.createRole(roleDto);

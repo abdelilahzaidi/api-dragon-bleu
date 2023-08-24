@@ -4,7 +4,7 @@ import { Reflector } from "@nestjs/core";
 import * as jwt from 'jsonwebtoken'
 import { UserService } from "src/modules/user/user.service";
 import { STATUS_KEY } from "./status.decorator";
-import { UserEntity } from "src/common/entities/user";
+
 
 
 @Injectable()

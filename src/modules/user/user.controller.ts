@@ -33,8 +33,8 @@ export class UserController {
        return  await this.userService.createUser(dto);
     }
 
-    // @UseGuards(StatusGuard)
-    // @Status(UserStatus.ADMIN)    
+    @UseGuards(StatusGuard)
+    @Status(UserStatus.ADMIN)    
 
     @Delete(':id')    
     async delete(@Param('id') id: number) {

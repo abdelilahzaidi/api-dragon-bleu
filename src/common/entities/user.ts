@@ -1,7 +1,9 @@
 import { UserGender } from './../enums/gender.enum';
 import { Exclude } from "class-transformer";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { UserStatus } from "../enums/status.enum";
+import { RoleEntity } from './role';
+import { LevelEntity } from './level';
 
 @Entity('users')
 export class UserEntity{
@@ -41,4 +43,14 @@ export class UserEntity{
 
     @Column({ type: 'enum', enum: UserStatus, default: UserStatus.MEMBER })
     status: UserStatus;
+
+    @ManyToMany(() => RoleEntity, role => role.users)
+    @JoinTable({
+        name: 'user_role',
+        joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+        inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' }
+    })
+    roles: RoleEntity[];
+    @ManyToOne(() => LevelEntity, level => level.users, { nullable: true })
+    level: LevelEntity;
 }

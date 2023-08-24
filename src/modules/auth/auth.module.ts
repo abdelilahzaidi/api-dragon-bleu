@@ -5,6 +5,7 @@ import { UserModule } from '../user/user.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from 'src/shared/security/jwt.strategy';
+import { RoleModule } from '../role/role.module';
 
 
 @Module({
@@ -17,7 +18,8 @@ import { JwtStrategy } from 'src/shared/security/jwt.strategy';
           signOptions : {expiresIn:'1d'}
           })
     ,
-    forwardRef(() => UserModule),   
+    forwardRef(() => UserModule), 
+    forwardRef(()=> RoleModule)  
   ],
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
