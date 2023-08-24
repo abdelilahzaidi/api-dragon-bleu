@@ -1,4 +1,4 @@
-import { ConflictException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ConflictException, HttpException, HttpStatus, Injectable, Put } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserCreateDTO } from 'src/common/dto/user/user-create.dto';
 import { UserEntity } from 'src/common/entities/user';
@@ -77,6 +77,11 @@ export class UserService {
     
         return user.status
       }
+
+
+
+
+  
 
     
 }

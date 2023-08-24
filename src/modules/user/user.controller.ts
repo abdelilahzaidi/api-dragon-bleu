@@ -1,10 +1,10 @@
 import { UserService } from './user.service';
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+
 import { UserCreateDTO } from 'src/common/dto/user/user-create.dto';
 import { UserEntity } from 'src/common/entities/user';
 import { UserStatus } from 'src/common/enums/status.enum';
-import { JwtAuthGuard } from 'src/shared/security/jwt-auth.guard';
+
 import { Status } from 'src/shared/security/status.decorator';
 import { StatusGuard } from 'src/shared/security/status.guard';
 
@@ -31,6 +31,30 @@ export class UserController {
         console.log('Role user',role)
         console.log('DTO in controler ',dto)
        return  await this.userService.createUser(dto);
+    }
+
+    // @UseGuards(StatusGuard)
+    // @Status(UserStatus.ADMIN)    
+
+    @Delete(':id')    
+    async delete(@Param('id') id: number) {
+        return this.userService.delete(id);
+    }
+
+
+    @Put(':id')    
+    async update(
+        @Param('id') id: number,
+        @Body() body
+    ) {
+        const { ...data} = body;
+        
+        await this.userService.update(id, {
+            ...data,
+           
+        });
+
+        return this.userService.findOneById(id);
     }
 
 }
